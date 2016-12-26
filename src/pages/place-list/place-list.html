@@ -1,0 +1,48 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Meus Lugares</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="Atualizar"
+            refreshingSpinner="circles"
+            refreshingText="Atualizando...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+	<ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
+ 
+    <div *ngIf="searching" class="spinner-container">
+        <ion-spinner></ion-spinner>
+    </div>
+ 
+    <ion-list inset>
+        <ion-item-sliding *ngFor="let place of places">
+            <ion-item (click)="showItem(place)">
+                <ion-avatar item-left>
+                    <ion-icon name="{{ place.icon }}"></ion-icon>
+                </ion-avatar>
+                <h2>{{ place.description }}</h2>
+                <p>{{ place.address }}</p>
+            </ion-item>
+            <ion-item-options side="right">
+                <button ion-button color="primary">
+                    <ion-icon name="map"></ion-icon>
+                    Mapa
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+
+	<ion-fab right bottom (click)="addItem()">
+        <button ion-fab color="danger">
+        	<ion-icon name="add"></ion-icon>
+        </button>   
+    </ion-fab>
+</ion-content>

@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Novo Lugar</ion-title>
+     <ion-buttons end>
+            <button ion-button icon-only (click)="close()">
+              <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="placeAddForm">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Descrição</ion-label>
+        <ion-input type="text" formControlName="description" [(ngModel)]="description"></ion-input>
+      </ion-item>
+      <p [hidden]="placeAddForm.controls.description.valid" danger padding-left><small>Obrigatório</small></p>
+
+      <ion-item>
+      	<ion-label floating>Endereço</ion-label>
+       	<ion-input type="text" formControlName="address" [(ngModel)]="address"></ion-input>
+      </ion-item>
+      <p [hidden]="placeAddForm.controls.address.valid" danger padding-left><small>Obrigatório</small></p>
+    </ion-list>
+
+    <button ion-button full [disabled]="!placeAddForm.controls.description.valid || !placeAddForm.controls.address.valid" color="secondary" (click)="saveItem()">
+      Adicionar
+    </button>
+  </form>
+</ion-content>
